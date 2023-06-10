@@ -1,0 +1,15 @@
+
+spring.application.name: bank-customers-service
+
+server:
+  port: 8085
+
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: test-group-id
+      auto-offset-reset: earliest
