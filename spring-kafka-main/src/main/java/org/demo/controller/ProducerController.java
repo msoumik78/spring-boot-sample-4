@@ -1,5 +1,6 @@
 package org.demo.controller;
 
+import org.demo.event.UserProfileChangeEvent;
 import org.demo.services.KafkaProducerService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class ProducerController {
     }
 
     @PostMapping(produces = {"application/json"})
-    public void postMessage(@RequestBody String messageText) {
-        kafkaProducer.send(topicName, messageText);
+    public void postMessage(@RequestBody UserProfileChangeEvent userProfileChangeEvent) {
+        kafkaProducer.send(topicName, userProfileChangeEvent);
     }
 }

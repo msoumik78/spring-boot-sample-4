@@ -30,12 +30,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <dependency>
-                <groupId>org.example</groupId>
-                <artifactId>spring-boot-data</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
