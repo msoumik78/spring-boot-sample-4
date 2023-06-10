@@ -1,21 +1,25 @@
 package org.demo.controller;
 
-import lombok.RequiredArgsConstructor;
-import org.demo.services.KafkaProducer;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.demo.services.KafkaProducerService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/1/kafka-controllers")
-@RequiredArgsConstructor
+@RequestMapping("/api/1/kafka")
 public class ProducerController {
+    private final KafkaProducerService kafkaProducer;
+    private final String topicName;
 
-    private final KafkaProducer kafkaProducer;
+    public ProducerController(KafkaProducerService kafkaProducer, @Value("${topic.name}") String topicName) {
+        this.kafkaProducer = kafkaProducer;
+        this.topicName = topicName;
+    }
 
     @PostMapping(produces = {"application/json"})
-    public void createCustomer() {
-        kafkaProducer.send("NewTopic", "Test message 1");
+    public void postMessage(@RequestBody String messageText) {
+        kafkaProducer.send(topicName, messageText);
     }
 }
